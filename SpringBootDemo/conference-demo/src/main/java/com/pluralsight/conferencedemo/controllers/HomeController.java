@@ -17,11 +17,10 @@ public class HomeController {
   private String appVersion;
 
 
-  @GetMapping
-  @RequestMapping("/")
-  public Map getStatus() {
+  @GetMapping("/")
+  public Map<String, String> getStatus() {
     log.trace("Entering getStatus()");
-    Map map = new HashMap<String, String>();
+    Map<String, String> map = new HashMap<>();
     map.put("app-version", appVersion);
     return map;
   }

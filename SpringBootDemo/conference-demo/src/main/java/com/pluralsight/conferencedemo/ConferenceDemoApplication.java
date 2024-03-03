@@ -11,6 +11,7 @@ public class ConferenceDemoApplication {
   public static void main(String[] args) {
     log.trace("Starting Conference App ...");
     SpringApplication.run(ConferenceDemoApplication.class, args);
+    log.info("Application has been started");
   }
 
 }

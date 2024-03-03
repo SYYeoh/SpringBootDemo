@@ -1,62 +1,73 @@
 package com.example.bookmanagementsystem.controller;
 
-import com.example.bookmanagementsystem.model.Book;
-import com.example.bookmanagementsystem.repositories.BookRepository;
+import com.example.bookmanagementsystem.model.dto.BookDto;
+import com.example.bookmanagementsystem.model.entity.Book;
+import com.example.bookmanagementsystem.services.BookService;
 import java.util.List;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/books")
+@RequestMapping("ms-book/api/v1/books")
 @Slf4j
 public class BookController {
+
+  private final BookService bookService;
+
   @Autowired
-  private BookRepository bookRepository;
+  public BookController(BookService bookService) {
+    this.bookService = bookService;
+  }
+
 
   @PostMapping
-  public Book create(@RequestBody final Book book) {
-    log.trace("Creating Book title: " + book.getTitle());
-    log.trace("Creating Book author: " + book.getAuthor());
-    log.trace("Creating Book publication year: " + book.getPublicationYear());
-    return bookRepository.saveAndFlush(book);
+  public BookDto create(@RequestBody final BookDto bookDto) {
+    log.trace("Entering book create..");
+    return bookService.createBook(bookDto);
   }
 
-  @GetMapping
-  @RequestMapping("{id}")
-  public Book get(@PathVariable Long id) {
-    log.trace("get book id: " + id);
-    return bookRepository.getReferenceById(id);
+  @GetMapping("/{id}")
+  public BookDto get(@PathVariable Long id) {
+    log.trace("Entering book get..");
+    return bookService.getBookById(id);
   }
 
-  @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  public Book update(@PathVariable Long id, @RequestBody Book book) {
+  @PutMapping(value = "{id}")
+  public BookDto update(@PathVariable Long id, @RequestBody BookDto bookDto) {
     log.trace("entering update()");
-    log.trace("id: " + id);
-    log.trace("book: " + book);
-    Book existingBook = bookRepository.getReferenceById(id);
-    log.debug("ExistingBook: " + existingBook);
-    BeanUtils.copyProperties(book, existingBook, "id");
-    log.debug("Updated book: " + existingBook);
-    return bookRepository.saveAndFlush(existingBook);
+    return bookService.updateBook(id, bookDto);
+
   }
 
-  @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+  @DeleteMapping(value = "{id}")
   public void delete(@PathVariable Long id) {
     log.trace("Entering delete() with id: " + id);
-    bookRepository.deleteById(id);
+    bookService.deleteById(id);
   }
 
   @GetMapping
-  public List<Book> list() {
+  public List<BookDto> list() {
     log.trace("Entering list()");
-    return bookRepository.findAll();
+    return bookService.getBooks();
+  }
+
+  public String hello(String language, String name) {
+    if (Objects.equals(language, "en")) {
+      return "Hello " + name;
+
+    } else if (Objects.equals(language, "ch")) {
+      return "Ni Hao " + name;
+    } else {
+      return name;
+    }
   }
 }

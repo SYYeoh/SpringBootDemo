@@ -1,68 +1,64 @@
 package com.pluralsight.conferencedemo.controllers;
 
-import com.pluralsight.conferencedemo.models.Session;
-import com.pluralsight.conferencedemo.repositories.SessionRepository;
+import com.pluralsight.conferencedemo.models.dto.SessionDto;
+import com.pluralsight.conferencedemo.services.SessionsService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/sessions")
+@RequestMapping("/ms-conference/api/v1/sessions")
 @Slf4j
 public class SessionsController {
 
-  @Autowired
-  private SessionRepository sessionRepository;
+  private final SessionsService sessionsService;
 
-  @GetMapping
-  public List<Session> list() {
-    log.trace("Entering list()");
-    return sessionRepository.findAll();
+  public SessionsController(SessionsService sessionsService) {
+    this.sessionsService = sessionsService;
   }
 
   @GetMapping
-  @RequestMapping("{id}")
-  public Session get(@PathVariable Long id) {
+  public List<SessionDto> list() {
+    log.trace("Entering list()");
+    return sessionsService.getAllSession();
+  }
+
+  @GetMapping("{id}")
+  public SessionDto get(@PathVariable Long id) {
     log.trace("get session id: " + id);
-    return sessionRepository.getOne(id);
+    return sessionsService.getSessionById(id);
   }
 
   @PostMapping
-  public Session create(@RequestBody final Session session) {
-    log.trace("Creating sessionName: " + session.getSessionName());
-    log.trace("Creating sessionDescription : " + session.getSessionDescription());
-    log.trace("Creating sessionLength : " + session.getSessionLength());
-    return sessionRepository.saveAndFlush(session);
+  public SessionDto create(@RequestBody final SessionDto sessionDto) {
+    return sessionsService.createSession(sessionDto);
   }
 
-  @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+  @DeleteMapping(value = "{id}")
   public void delete(@PathVariable Long id) {
     //Also need to check for children records before deleting.
     log.trace("Entering delete() with id: " + id);
-    sessionRepository.deleteById(id);
+    sessionsService.deleteSessionById(id);
   }
 
-  @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-  public Session update(@PathVariable Long id, @RequestBody Session session) {
+  @PutMapping(value = "{id}")
+  public SessionDto update(@PathVariable Long id, @RequestBody SessionDto sessionDto) {
     //because this is a PUT, we expect all attributes to be passed in.
     // A PATCH would only need what has changed.
-    //TODO: Add validation that all attributes are passed in, otherwise return a 400 bad payload
     log.trace("entering update()");
-    log.trace("sessionId: " + session.getSessionId());
-    log.trace("sessionName: " + session.getSessionName());
-    log.trace("sessionDescription: " + session.getSessionDescription());
-    log.trace("sessionLength: " + session.getSessionLength());
-    Session existingSession = sessionRepository.getOne(id);
-    BeanUtils.copyProperties(session, existingSession, "session_id");
-    return sessionRepository.saveAndFlush(existingSession);
+    log.trace("sessionId: " + sessionDto.getSessionId());
+    log.trace("sessionName: " + sessionDto.getSessionName());
+    log.trace("sessionDescription: " + sessionDto.getSessionDescription());
+    log.trace("sessionLength: " + sessionDto.getSessionLength());
+
+    return sessionsService.updateSessionById(id, sessionDto);
   }
 
 }
