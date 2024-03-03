@@ -1,0 +1,20 @@
+logging:
+  level:
+    com:
+      example:
+        gatewaydemo: TRACE
+
+server:
+  port : 5000
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ms-conference-svc
+          uri: '${CONFERENCE_URI:http://localhost:8081}'
+          predicates:
+            - '${CONFERENCE_PATH:Path=/ms-conference/**}'
+        - id: ms-book-management-svc
+          uri: '${BOOK_URI:http://localhost:8080}'
+          predicates:
+            - '${BOOK_PATH:Path=/ms-book/**}'

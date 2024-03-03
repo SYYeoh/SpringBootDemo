@@ -1,0 +1,34 @@
+#spring.flyway.enabled=true
+#spring.datasource.url=jdbc:postgresql://localhost:5432/conference_app?currentSchema=conference_app
+#spring.datasource.username=postgres
+#spring.datasource.password=QQ1234!!
+#spring.jpa.database-platform = org.hibernate.dialect.PostgreSQLDialect
+#spring.jpa.hibernate.ddl-auto = none
+#spring.jpa.hibernate.show-sql=true
+#
+#spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+#
+#app.version=1.0.1
+
+app:
+  version: 1.0.1
+logging:
+  level:
+    com:
+      pluralsight:
+        conferencedemo: TRACE
+spring:
+  flyway:
+    enabled: true
+  datasource:
+    url: '${LOCAL_CONFERENCE_POSTGRES:jdbc:postgresql://localhost:5432/conference_app?currentSchema=conference_app}'
+    username: '${LOCAL_CONFERENCE_USERNAME:postgres}'
+    password: '${LOCAL_CONFERENCE_PASSWORD:QQ1234!!}'
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+      show-sql: '${CONFERENCE_SHOW_SQL:true}'
+      jdbc:
+        lob:
+          non_contextual_creation: '${CONFERENCE_NON_CONTEXTUAL_CREATION:true}'
