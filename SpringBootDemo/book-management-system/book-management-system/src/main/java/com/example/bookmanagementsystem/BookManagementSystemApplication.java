@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BookManagementSystemApplication {
 
   public static void main(String[] args) {
-    log.trace("Starting book management ...");
+    log.info("Starting book management ...");
     SpringApplication.run(BookManagementSystemApplication.class, args);
   }
 
