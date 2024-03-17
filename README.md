@@ -12,3 +12,8 @@
 - SonarQube Integration with Unit Test
 - application.properties to application.yaml
 - Use MapperStruct for DTO and Service system pattern
+
+## PR from add-external-dto
+(03/03/2024)
+- import and use external DTO
+- update test case
