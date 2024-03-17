@@ -17,3 +17,8 @@
 (03/03/2024)
 - import and use external DTO
 - update test case
+
+## PR from kafka-spring-batch
+(08/03/2024)
+- create kafka producer and consumer
+- use spring batch to batch create into db
