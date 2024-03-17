@@ -1,6 +1,6 @@
 package com.example.bookmanagementsystem.services;
 
-import com.example.bookmanagementsystem.model.dto.BookDto;
+import com.example.bookdto.BookDto;
 import com.example.bookmanagementsystem.model.entity.Book;
 import com.example.bookmanagementsystem.model.mapper.BookMapper;
 import com.example.bookmanagementsystem.repositories.BookRepository;

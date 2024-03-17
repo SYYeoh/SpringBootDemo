@@ -1,7 +1,6 @@
 package com.example.bookmanagementsystem.controller;
 
-import com.example.bookmanagementsystem.model.dto.BookDto;
-import com.example.bookmanagementsystem.model.entity.Book;
+import com.example.bookdto.BookDto;
 import com.example.bookmanagementsystem.services.BookService;
 import java.util.List;
 import java.util.Objects;

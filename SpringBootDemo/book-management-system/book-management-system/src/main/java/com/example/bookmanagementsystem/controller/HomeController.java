@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ms-book")
 @Slf4j
 public class HomeController {
+
   @GetMapping
   public String hello() {
     log.trace("Entering hello()");

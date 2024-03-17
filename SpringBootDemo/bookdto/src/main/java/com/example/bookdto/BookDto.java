@@ -1,4 +1,4 @@
-package com.example.bookmanagementsystem.model.dto;
+package com.example.bookdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
