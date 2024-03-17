@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class HomeControllerTest {
+
   @InjectMocks
   HomeController homeController;
 

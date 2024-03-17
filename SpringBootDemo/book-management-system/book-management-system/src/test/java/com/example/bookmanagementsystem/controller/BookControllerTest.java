@@ -1,8 +1,6 @@
 package com.example.bookmanagementsystem.controller;
 
-import com.example.bookmanagementsystem.model.dto.BookDto;
-import com.example.bookmanagementsystem.model.entity.Book;
-import com.example.bookmanagementsystem.repositories.BookRepository;
+import com.example.bookdto.BookDto;
 import com.example.bookmanagementsystem.services.BookService;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ class BookControllerTest {
   @BeforeEach
   void setUp() {
     bookDto = new BookDto(1L, "Title 1", "Author 1", 2001);
-    bookDto1 = new BookDto(2L,"Title 2", "Author 2", 2002);
+    bookDto1 = new BookDto(2L, "Title 2", "Author 2", 2002);
     books = new ArrayList<>();
     books.add(bookDto);
     books.add(bookDto1);
@@ -66,8 +64,8 @@ class BookControllerTest {
 
   @Test
   void testDelete() {
-      bookController.delete(1L);
-      verify(bookService, times(1)).deleteById(1L);
+    bookController.delete(1L);
+    verify(bookService, times(1)).deleteById(1L);
   }
 
   @Test
