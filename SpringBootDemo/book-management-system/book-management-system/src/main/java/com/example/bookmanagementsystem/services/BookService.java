@@ -10,6 +10,7 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +20,16 @@ public class BookService {
   private static final int MAX_BOOKS_THRESHOLD = 100000;
   private static final String EXCEPTION_ERROR_STRING = "Error delete book failed with id: {} error message: {}";
   private final BookRepository bookRepository;
+  private final KafkaTemplate<String, BookDto> bookInsertkafkaTemplate;
 
   @Autowired
-  public BookService(BookRepository bookRepository) {
+  public BookService(BookRepository bookRepository,
+      KafkaTemplate<String, BookDto> bookInsertkafkaTemplate) {
     this.bookRepository = bookRepository;
+    this.bookInsertkafkaTemplate = bookInsertkafkaTemplate;
   }
+
+  private static final String KAFKA_TOPIC = "book-data";
 
   public BookDto createBook(BookDto bookDto) {
     log.trace("Creating Book title: " + bookDto.getTitle());
@@ -32,8 +38,10 @@ public class BookService {
 
     try {
       Book bookEntity = BookMapper.INSTANCE.toEntity(bookDto);
-      Book savedBook = bookRepository.saveAndFlush(bookEntity);
-      return BookMapper.INSTANCE.toDto(savedBook);
+      Book saveBook = bookRepository.saveAndFlush(bookEntity);
+      BookDto savedBookDto = BookMapper.INSTANCE.toDto(saveBook);
+      bookInsertkafkaTemplate.send(KAFKA_TOPIC, savedBookDto);
+      return savedBookDto;
     } catch (Exception e) {
       log.error(EXCEPTION_ERROR_STRING, bookDto.getId(), e.getMessage());
       return null;
