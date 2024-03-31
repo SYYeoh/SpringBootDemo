@@ -1,0 +1,40 @@
+kafka - run at root path
+Start ZooKeeper
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+Run Kakfa 
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+Create Kafka Topic
+.\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
+
+Create Producer
+.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic test
+
+Create Consumer
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test
+
+Create Consumer that reads from start of topic (from beginning)
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test --group from-cli --from-beginning
+
+Delete Topic
+.\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --delete --topic test
+---
+SonarQube
+- to run sonarqube: `<unzipped sonarqube path>/bin/windows-x86-64/StartSonar.bat`
+    - wait console show `SonarQube is operational`
+    - [localhost:9000](http://localhost:9000)
+    - `admin/QQ1234!!`
+
+Quality Gate
+1. coverage less than 80% ; 
+    1. some might allow on new and overall code
+2. duplicated lines (%) 3
+3. maintainability rating A
+4. blocker issues 0
+5. critical issues 0
+6. major issues 0
+7. vulnerabilities 0
+8. reliability rating A
+9. security hotspots reviewed 100
+10. security rating A

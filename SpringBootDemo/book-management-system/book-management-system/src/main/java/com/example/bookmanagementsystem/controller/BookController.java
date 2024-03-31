@@ -27,7 +27,6 @@ public class BookController {
     this.bookService = bookService;
   }
 
-
   @PostMapping
   public BookDto create(@RequestBody final BookDto bookDto) {
     log.trace("Entering book create..");

@@ -22,3 +22,11 @@ spring:
       jdbc:
         lob:
           non_contextual_creation: '${CONFERENCE_NON_CONTEXTUAL_CREATION:true}'
+  consumer:
+    bootstrap-servers: localhost:9092
+    group-id: consumer-1
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring.json.trusted.packages: com.example.*
+      auto.offset.reset: earliest
