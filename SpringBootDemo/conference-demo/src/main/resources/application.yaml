@@ -11,9 +11,9 @@ spring:
   flyway:
     enabled: true
   datasource:
-    url: '${LOCAL_CONFERENCE_POSTGRES:jdbc:postgresql://localhost:5432/conference_app?currentSchema=conference_app}'
+    url: '${LOCAL_CONFERENCE_POSTGRES:jdbc:postgresql://localhost:5432/postgres]?currentSchema=conference_app}'
     username: '${LOCAL_CONFERENCE_USERNAME:postgres}'
-    password: '${LOCAL_CONFERENCE_PASSWORD:QQ1234!!}'
+    password: '${LOCAL_CONFERENCE_PASSWORD:postgres}'
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:

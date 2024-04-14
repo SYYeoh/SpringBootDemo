@@ -1,4 +1,4 @@
-#spring.datasource.url=jdbc:postgresql://localhost:5432/conference_app?currentSchema=book_management
+#spring.datasource.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=book_management
 #spring.datasource.username=postgres
 #spring.datasource.password=${LOCAL_BOOK_PASSWORD}
 #spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
@@ -13,9 +13,9 @@ logging:
 
 spring:
   datasource:
-    url: '${LOCAL_BOOK_POSTGRES:jdbc:postgresql://localhost:5432/conference_app?currentSchema=book_management}'
+    url: '${LOCAL_BOOK_POSTGRES:jdbc:postgresql://localhost:5432/postgres?currentSchema=book_management}'
     username: '${LOCAL_BOOK_USERNAME:postgres}'
-    password: '${LOCAL_BOOK_PASSWORD:QQ1234!!}'
+    password: '${LOCAL_BOOK_PASSWORD:postgres}'
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
