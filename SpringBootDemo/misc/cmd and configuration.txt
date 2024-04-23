@@ -1,3 +1,9 @@
+docker postgresql cmd
+docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+
+install these maven first before other
+parent-pom > bookdto
+
 kafka - run at root path
 Start ZooKeeper
 .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties

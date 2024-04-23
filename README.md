@@ -1,12 +1,19 @@
 ## Project & Tech Stack Description 
 
+<p>A spring boot demo with multiple project to show tech stack that I proficient with. </p>
+<p>It utilizes a Spring Boot microservices architecture with multiple projects to achieve modularity and scalability.</p>
+
 >Tech Stack Used: Java 17, Maven, Spring Boot 3.2.3
+
+>Database: Postgresql 
 
 >Data Pipeline: Apache Kafka
 
 >Code Quality Monitor: SonarQube
 
 >Batch: Spring Batch
+
+>Gateway: Spring Cloud Gateway
 ---
 ## PR Change Log
 
